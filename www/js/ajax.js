@@ -149,9 +149,11 @@
                 url: url,
 
                 success: function (data) {
+                    navigator.notification.alert('success')
                     el.append('<span>' + data + '</span> <br>')
                 },
                 error: function (jqXHR, textStatus, error) {
+                    navigator.notification.alert('error')
                     el.append('<span>' + jqXHR.status + '</span> <br>')
                     el.append('<span>' + jqXHR.responseText + '</span> <br>')
                     el.append('<span>' + textStatus + '</span> <br>')
