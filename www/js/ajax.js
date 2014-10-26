@@ -139,6 +139,7 @@
 
     if (callType == 'basic') {
     
+        try {
             $.ajax({
                 headers: {
                     "Authorization": 'Basic ' + Base64.encode('ali:-09poi_)(POI'),
@@ -158,29 +159,39 @@
 
                 }
             });
-      
+
+        } catch (e) {
+            el.append('<span>' + e + '</span> <br>')
+        }
+           
     }
 
     if (callType == 'ntlm') {
-        $.ajax({
-            headers: {
-                //"Authorization": 'Basic ' + Base64.encode('ali:-09poi_)(POI'),
-                "ACCEPT": "application/json;odata=verbose"
-            },
-            crossDomain: true,
-            url: url,
 
-            success: function (data) {
-                el.append('<span>' + data + '</span> <br>')
-            },
-            error: function (jqXHR, textStatus, error) {
-                el.append('<span>' + jqXHR.status + '</span> <br>')
-                el.append('<span>' + jqXHR.responseText + '</span> <br>')
-                el.append('<span>' + textStatus + '</span> <br>')
-                el.append('<span>' + error + '</span> <br>')
-                navigator.notification.alert(error)
-            }
-        });
+        try {
+            $.ajax({
+                headers: {
+                    //"Authorization": 'Basic ' + Base64.encode('ali:-09poi_)(POI'),
+                    "ACCEPT": "application/json;odata=verbose"
+                },
+                crossDomain: true,
+                url: url,
+
+                success: function (data) {
+                    el.append('<span>' + data + '</span> <br>')
+                },
+                error: function (jqXHR, textStatus, error) {
+                    el.append('<span>' + jqXHR.status + '</span> <br>')
+                    el.append('<span>' + jqXHR.responseText + '</span> <br>')
+                    el.append('<span>' + textStatus + '</span> <br>')
+                    el.append('<span>' + error + '</span> <br>')
+                    navigator.notification.alert(error)
+                }
+            });
+        } catch (e) {
+            el.append('<span>' + e + '</span> <br>')
+        }
+      
     }
 
     if (callType == 'jsonp') {
