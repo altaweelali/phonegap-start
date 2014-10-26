@@ -33,14 +33,22 @@
         <div class="app">
             <h1>PhoneGap</h1>
             <div id="deviceready" >
+                UserName:
+                <input type="text" name="username" value="" id="user-name" />
+                Password:
+                <input type="text" name="Password" value="" id="user-password" />
+                <br />
                 <input type="text" name="name" value="http://192.168.1.17" id="server-name"/>
+                <br />
                 <select id="call-type">
                     <option value="basic">Basic</option>
                     <option value="ntlm">NTLM</option>
                     <option value="jsonp">JSONP</option>
                 </select>
+                <br />
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
+                <br />
                 <button onclick="callAjax()">Call Ajax</button>
                 <button onclick="clearScreen()">clear</button>
                 <p id="ajax-message"></p>

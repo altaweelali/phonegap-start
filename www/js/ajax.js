@@ -1,5 +1,7 @@
 ﻿function callAjax() {
 
+    var username = $('#user-name').val();
+    var password = $('#user-password').val();
  
     var serverName = $('#server-name').val();
     var url = serverName + '/PWA/_api/ProjectData/Projects'
@@ -143,7 +145,7 @@
         try {
             $.ajax({
                 headers: {
-                    "Authorization": 'Basic ' + Base64.encode('ali:-09poi_)(POI'),
+                    "Authorization": 'Basic ' + Base64.encode(username + ':' + password),
                     "ACCEPT": "application/json;odata=verbose"
                 },
                 crossDomain: true,
@@ -181,7 +183,7 @@
                 url: url,
 
                 success: function (data) {
-                    el.append('<span>' + data + '</span> <br>')
+                    el.append('<span>' + data.d.results[0].ProjectName + '</span> <br>');
                 },
                 error: function (jqXHR, textStatus, error) {
                     el.append('<span>' + jqXHR.status + '</span> <br>')
@@ -199,7 +201,7 @@
 
     if (callType == 'jsonp') {
         var xhr = window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest();
-        xhr.open("GET", url, true, encodeURIComponent('ali'), encodeURIComponent('-09poi_)(POI'));
+        xhr.open("GET", url, true, encodeURIComponent(username), encodeURIComponent(password));
         xhr.send();
         xhr.onload = function () {
             var statusCode = xhr.status;
@@ -229,9 +231,9 @@ function clearScreen() {
 }
 
 $(document).ajaxError(function (event, jqxhr, settings, exception) {
-
-    el.append('<span>' + jqXHR.status + '</span> <br>')
     var el = $('#ajax-message');
+    el.append('<span>' + jqXHR.status + '</span> <br>')
+
 
     if (jqxhr.status == 401) {
         el.append('<span>' + exception + '</span> <br>')
