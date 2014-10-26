@@ -201,7 +201,9 @@
 
     if (callType == 'jsonp') {
         var xhr = window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest();
+       
         xhr.open("GET", url, true, encodeURIComponent(username), encodeURIComponent(password));
+        xhr.setRequestHeader("ACCEPT", "application/json;odata=verbose")
         xhr.send();
         xhr.onload = function () {
             var statusCode = xhr.status;
