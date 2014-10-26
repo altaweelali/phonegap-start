@@ -178,7 +178,7 @@
                 el.append('<span>' + jqXHR.responseText + '</span> <br>')
                 el.append('<span>' + textStatus + '</span> <br>')
                 el.append('<span>' + error + '</span> <br>')
-
+                navigator.notification.alert(error)
             }
         });
     }
