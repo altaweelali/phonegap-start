@@ -1,7 +1,8 @@
 ﻿function callAjax() {
 
+ 
     var serverName = $('#server-name').val();
-    var url = serverName + '/PWA/_api/Projectdata/Projects'
+    var url = serverName + '/PWA/_api/ProjectData/Projects'
     var el = $('#ajax-message');
     var callType = $('#call-type').val();
     var Base64 = {
@@ -153,7 +154,7 @@
                     el.append('<span>' + data + '</span> <br>');
                 },
                 error: function (jqXHR, textStatus, error) {
-                    navigator.notification.alert('error')
+                    //navigator.notification.alert('error')
                     el.append('<span>' + jqXHR.status + '</span> <br>')
                     el.append('<span>' + jqXHR.responseText + '</span> <br>')
                     el.append('<span>' + textStatus + '</span> <br>')
@@ -187,7 +188,7 @@
                     el.append('<span>' + jqXHR.responseText + '</span> <br>')
                     el.append('<span>' + textStatus + '</span> <br>')
                     el.append('<span>' + error + '</span> <br>')
-                    navigator.notification.alert(error)
+                    //navigator.notification.alert(error)
                 }
             });
         } catch (e) {
@@ -211,3 +212,14 @@ function clearScreen() {
     var el = $('#ajax-message');
     el.children().remove();
 }
+
+$(document).ajaxError(function (event, jqxhr, settings, exception) {
+
+    var el = $('#ajax-message');
+
+    if (jqxhr.status == 401) {
+        el.append('<span>' + exception + '</span> <br>')
+        el.append('<span>' + jqXHR.status + '</span> <br>')
+
+    }
+});
