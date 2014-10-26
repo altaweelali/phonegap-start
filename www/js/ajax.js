@@ -198,9 +198,24 @@
     }
 
     if (callType == 'jsonp') {
-        $.getJSON(url + "?callback=?", null, function (data) {
-            el.append('<span>' + data + '</span> <br>')
-        });
+        var xhr = window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest();
+        xhr.open("GET", url, true, encodeURIComponent('ali'), encodeURIComponent('-09poi_)(POI'));
+        xhr.send();
+        xhr.onload = function () {
+            var statusCode = xhr.status;
+            if (statusCode == 200) {
+                var response = xhr.responseText;
+               //var res = JSON.parse(response);
+                el.append('<span>cooool</span> <br>')
+            }
+        };
+        xhr.onerror = function (e) {
+            el.append('<span>' + e.error + '</span> <br>')
+        };
+
+      
+       
+      
 
     }
 
@@ -215,6 +230,7 @@ function clearScreen() {
 
 $(document).ajaxError(function (event, jqxhr, settings, exception) {
 
+    el.append('<span>' + jqXHR.status + '</span> <br>')
     var el = $('#ajax-message');
 
     if (jqxhr.status == 401) {
