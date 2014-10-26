@@ -1,6 +1,9 @@
 ﻿function callAjax() {
-    var url = 'http://ps13dev01/PWA/_api/Projectdata/Projects'
 
+    var serverName = $('#server-name').val();
+    var url = serverName + '/PWA/_api/Projectdata/Projects'
+    var el = $('#ajax-message');
+    var callType = $('#call-type').val();
     var Base64 = {
 
 
@@ -134,34 +137,64 @@
     }
 
 
-    function myfunction() {
-        //$.getJSON(url + "?callback=?", null, function (data) {
-        //    console.log(data);
-        //});
+    if (callType == 'basic') {
+    
+            $.ajax({
+                headers: {
+                    "Authorization": 'Basic ' + Base64.encode('ali:-09poi_)(POI'),
+                    "ACCEPT": "application/json;odata=verbose"
+                },
+                crossDomain: true,
+                url: url,
 
-        call()
+                success: function (data) {
+                    el.append('<span>' + data + '</span> <br>')
+                },
+                error: function (jqXHR, textStatus, error) {
+                    el.append('<span>' + jqXHR.status + '</span> <br>')
+                    el.append('<span>' + jqXHR.responseText + '</span> <br>')
+                    el.append('<span>' + textStatus + '</span> <br>')
+                    el.append('<span>' + error + '</span> <br>')
+
+                }
+            });
+      
     }
 
-    function call() {
+    if (callType == 'ntlm') {
         $.ajax({
             headers: {
-                "Authorization": 'Basic ' + Base64.encode('ali:-09poi_)(POI'),
+                //"Authorization": 'Basic ' + Base64.encode('ali:-09poi_)(POI'),
                 "ACCEPT": "application/json;odata=verbose"
             },
             crossDomain: true,
             url: url,
 
             success: function (data) {
-                alert('cool');
+                el.append('<span>' + data + '</span> <br>')
             },
             error: function (jqXHR, textStatus, error) {
-                alert(jqXHR.responseText)
-                alert(textStatus);
-                alert(error)
+                el.append('<span>' + jqXHR.status + '</span> <br>')
+                el.append('<span>' + jqXHR.responseText + '</span> <br>')
+                el.append('<span>' + textStatus + '</span> <br>')
+                el.append('<span>' + error + '</span> <br>')
+
             }
         });
     }
 
-    myfunction()
+    if (callType == 'jsonp') {
+        $.getJSON(url + "?callback=?", null, function (data) {
+            el.append('<span>' + data + '</span> <br>')
+        });
 
+    }
+
+   
+
+}
+
+function clearScreen() {
+    var el = $('#ajax-message');
+    el.children().remove();
 }
