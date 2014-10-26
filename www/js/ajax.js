@@ -150,8 +150,8 @@
                 url: url,
 
                 success: function (data) {
-                    navigator.notification.alert('success');
-                    el.append('<span>' + data + '</span> <br>');
+                    //navigator.notification.alert('success');
+                    el.append('<span>' + data.d.results[0].ProjectName + '</span> <br>');
                 },
                 error: function (jqXHR, textStatus, error) {
                     //navigator.notification.alert('error')
